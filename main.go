@@ -17,7 +17,7 @@ func main() {
 		listenAddress     = kingpin.Flag("web.listen-address", "Address to listen on for web interface and telemetry.").Default(":9649").String()
 		metricsPath       = kingpin.Flag("web.telemetry-path", "Path under which to expose metrics.").Default("/metrics").String()
 		logstashScrapeURI = kingpin.Flag("logstash.scrape-uri", "URI on which to scrape logstash.").Default("http://localhost:9600").String()
-		logstashTimeout   = kingpin.Flag("logstash.timeout", "Timeout for trying to get stats from logstash.").Default("5s").Duration()
+		logstashTimeout   = kingpin.Flag("logstash.timeout", "Timeout for trying to get stats from logstash.").Default("30s").Duration()
 	)
 	kingpin.HelpFlag.Short('h')
 	kingpin.Version(version.Print("logstash-exporter"))
