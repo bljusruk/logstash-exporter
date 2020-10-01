@@ -1,6 +1,7 @@
 package main
 
 import (
+        "time"
 	"net/http"
 
 	"github.com/Wing924/logstash-exporter/collector"
@@ -17,7 +18,7 @@ func main() {
 		listenAddress     = kingpin.Flag("web.listen-address", "Address to listen on for web interface and telemetry.").Default(":9649").String()
 		metricsPath       = kingpin.Flag("web.telemetry-path", "Path under which to expose metrics.").Default("/metrics").String()
 		logstashScrapeURI = kingpin.Flag("logstash.scrape-uri", "URI on which to scrape logstash.").Default("http://localhost:9600").String()
-		logstashTimeout   = kingpin.Flag("logstash.timeout", "Timeout for trying to get stats from logstash.").Default("30s").Duration()
+		logstashTimeout   = kingpin.Flag("logstash.timeout", "Timeout for trying to get stats from logstash.").Default("5s").Duration()
 	)
 	kingpin.HelpFlag.Short('h')
 	kingpin.Version(version.Print("logstash-exporter"))
@@ -34,6 +35,10 @@ func main() {
 	}
 	prometheus.MustRegister(exporter)
 	prometheus.MustRegister(version.NewCollector("logstash_exporter"))
+
+	logrus.WithField("address", *listenAddress).Info("TUKAJ SEM 1")
+        time.Sleep(30 * time.Second)
+	logrus.WithField("address", *listenAddress).Info("TUKAJ SEM 2")
 
 	http.Handle(*metricsPath, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
